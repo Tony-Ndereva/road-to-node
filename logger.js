@@ -1,6 +1,6 @@
-var url = "http://mylogger.io/log";
+var url = "https://mylogger.io/log";
 function log(message) {
-  // send an HTTP REQUEST
+  // send an http request
   console.log(message);
 }
-module.exports.log = log;
+module.exports = log;
