@@ -1,6 +1,6 @@
 const emmitter = require("events");
 
-var url = "http:paypal.com";
+var url = "http://paypal.com";
 
 class Logger extends emmitter {
   log(message) {
