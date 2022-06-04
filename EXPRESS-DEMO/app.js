@@ -2,6 +2,12 @@ const { AuthSchema } = require("./validate_schema");
 const express = require("express");
 const app = express();
 app.use(express.json());
+const logger = require("./logger");
+const authenticator = require("./authenticator");
+
+app.use(logger);
+
+app.use(authenticator);
 const courses = [
   { id: 1, name: "Biology" },
   { id: 2, name: "Chemistry" },
