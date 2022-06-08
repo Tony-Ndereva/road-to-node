@@ -3,6 +3,8 @@ const app = express();
 app.use(express.json());
 const { VidlySchema } = require("../EXPRESS-DEMO/validate_schema");
 
+// Since we are not working with a database,
+// (cont..) we create an empty array to store our data
 const genres = [];
 
 app.post("/api/genres", (req, res) => {

@@ -1,12 +1,28 @@
 const { AuthSchema } = require("./validate_schema");
 const express = require("express");
 const app = express();
-app.use(express.json());
 const logger = require("./logger");
 const authenticator = require("./authenticator");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const config = require("config");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.use(helmet());
+
+// Configutation
+
+console.log(`Application name : ${config.get("name")}`);
+console.log(`Mail Server : ${config.get("mail.host")}`);
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  console.log("Morgan Enabled");
+}
+console.log(app.get("env"));
 
 app.use(logger);
-
 app.use(authenticator);
 const courses = [
   { id: 1, name: "Biology" },
@@ -73,6 +89,7 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}.....`);
 });
+
 
 // OUTPUT ON BROWSER:
 // when you load url : 'localhost:5000/api/courses/1'  ---
