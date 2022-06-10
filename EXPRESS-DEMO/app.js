@@ -10,7 +10,8 @@ const config = require("config"); // Will look at this
 // Will look at thesw
 const debug = require("debug")("app:startup");
 
-
+app.set("view engine", "pug");
+app.set("views", "./views"); // Default
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -34,10 +35,12 @@ const courses = [
   { id: 3, name: "Physics" },
 ];
 
+app.get("/", (req, res) => {
+  res.render("index", { title: "My Express App", message: "Hello" });
+});
 app.get("/api/courses", (req, res) => {
   res.send(courses);
 });
-
 app.get("api/courses/:id", (req, res) => {
   const course = courses.find((c) => c.id === parseInt(req.params.id));
   if (!course) return res.status(404).send("Course was not found");
