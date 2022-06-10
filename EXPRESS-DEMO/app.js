@@ -1,12 +1,13 @@
 const { AuthSchema } = require("./validate_schema"); //will  look at this
 const express = require("express");
 const app = express();
-const logger = require("./logger");
-const authenticator = require("./authenticator");
+const logger = require("./middleware/logger");
+const authenticator = require("./middleware/authenticator");
 const helmet = require("helmet"); // will Look at this
 const morgan = require("morgan"); // Will look at this
 const config = require("config"); // Will look at this
-const courses = require("./courses");
+const courses = require("./routes/courses");
+const home = require("./routes/home");
 
 // Will look at thesw
 const debug = require("debug")("app:startup");
@@ -19,6 +20,7 @@ app.use(express.static("public"));
 app.use(helmet());
 
 app.use("/api/courses", courses);
+app.use("/", home);
 
 // Configuration
 
@@ -33,16 +35,9 @@ if (app.get("env") === "development") {
 app.use(logger);
 app.use(authenticator);
 
-
 const port = process.env.PORT || 3000;
 // On terminal , i have set PORT = 5000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}.....`);
 });
 
-// OUTPUT ON BROWSER:
-// when you load url : 'localhost:5000/api/courses/1'  ---
-//   (cont..)  will return the course Object with id of 1 ie : Biology
-
-// Otherwise it will return 'Course not found' if you supply an id that
-//  (cont..) is not found on the array

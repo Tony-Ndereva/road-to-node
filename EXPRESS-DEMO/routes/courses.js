@@ -12,9 +12,7 @@ const courses = [
   { id: 3, name: "Physics" },
 ];
 
-router.get("/", (req, res) => {
-  res.render("index", { title: "My Express App", message: "Hello" });
-});
+
 router.get("/", (req, res) => {
   res.send(courses);
 });
