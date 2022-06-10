@@ -1,26 +1,30 @@
-const { AuthSchema } = require("./validate_schema");
+const { AuthSchema } = require("./validate_schema"); //will  look at this
 const express = require("express");
 const app = express();
 const logger = require("./logger");
 const authenticator = require("./authenticator");
-const helmet = require("helmet");
-const morgan = require("morgan");
-const config = require("config");
+const helmet = require("helmet"); // will Look at this
+const morgan = require("morgan"); // Will look at this
+const config = require("config"); // Will look at this
+
+// Will look at thesw
+const debug = require("debug")("app:startup");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(helmet());
 
-// Configutation
+// Configuration
 
 console.log(`Application name : ${config.get("name")}`);
 console.log(`Mail Server : ${config.get("mail.host")}`);
+console.log(`Mail Password : ${config.get("mail.password")}`);
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
-  console.log("Morgan Enabled");
+  debug("Morgan Enabled");
 }
-console.log(app.get("env"));
 
 app.use(logger);
 app.use(authenticator);
@@ -89,7 +93,6 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}.....`);
 });
-
 
 // OUTPUT ON BROWSER:
 // when you load url : 'localhost:5000/api/courses/1'  ---
