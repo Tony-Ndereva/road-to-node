@@ -1,6 +1,6 @@
 const express = require("express");
-const router = express.Router();
-const { AuthSchema } = require("./validate_schema");
+const route = express.Router();
+const { AuthSchema } = require("../validate_schema");
 
 
 
@@ -13,15 +13,15 @@ const courses = [
 ];
 
 
-router.get("/", (req, res) => {
+route.get("/", (req, res) => {
   res.send(courses);
 });
-router.get("/:id", (req, res) => {
+route.get("/:id", (req, res) => {
   const course = courses.find((c) => c.id === parseInt(req.params.id));
   if (!course) return res.status(404).send("Course was not found");
   res.send(course);
 });
-router.post("/", (req, res) => {
+route.post("/", (req, res) => {
   const result = AuthSchema.validate(req.body);
   if (result.error)
     return res.status(404).send(result.error.details[0].message);
@@ -33,7 +33,7 @@ router.post("/", (req, res) => {
   courses.push(course);
   res.send(course);
 });
-router.put("/:id", (req, res) => {
+route.put("/:id", (req, res) => {
   // Look up for the course
   // If does not exist, return 404
   const course = courses.find((c) => c.id === parseInt(req.params.id));
@@ -53,7 +53,7 @@ router.put("/:id", (req, res) => {
   res.send(course);
 });
 
-router.delete("/:id", (req, res) => {
+route.delete("/:id", (req, res) => {
   // Look for the course
   const course = courses.find((c) => c.id === parseInt(req.params.id));
 
@@ -65,4 +65,4 @@ router.delete("/:id", (req, res) => {
   for (let key in course)
     res.send(`course ${key}  has been deleted successfully`);
 });
-module.exports = router;
+module.exports = route;
