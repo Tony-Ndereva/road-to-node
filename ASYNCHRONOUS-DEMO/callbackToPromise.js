@@ -1,27 +1,24 @@
 console.log("Before");
-// getuser(1, (user) => {
-//   console.log("User:", user);
-//   getRepositories(user.gitHubusername, (repos) => {
+// getUser(1, (user) => {
+//   getRepositories(user.gitHubUsername, (repos) => {
 //     getCommits(repos[0], (commits) => {
 //       console.log(commits);
 //     });
 //   });
 // });
-
-getuser(1)
-  .then((user) => getRepositories(user.gitHubusername))
-  .then((repos) => getCommits(repos[0]))
-  .then((commits) => console.log("commits", commits))
-  .catch((err) => console.log("Error:", err.message));
-
 console.log("After");
 
-function getuser(id) {
+getUser(1)
+  .then((user) => getRepositories())
+  .then((repos) => getCommits(repos[0]))
+  .then((commits) => console.log("commits", commits))
+  .catch((err) => console.log("Error", err.message));
+
+function getUser(id) {
   return new Promise((resolve, reject) => {
-    // Kick off async work
     setTimeout(() => {
-      console.log("Getting users from Database");
-      resolve({ id: id, gitHubusername: "Tony" });
+      console.log("Reading a user from a database...");
+      resolve({ id: id, gitHubUsername: "Tony" });
     }, 2000);
   });
 }
@@ -29,16 +26,17 @@ function getuser(id) {
 function getRepositories(username) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("Connecting to GitHub API....");
+      console.log("Calling GitHub API...");
       resolve(["repo1", "repo2", "repo3"]);
     }, 2000);
   });
 }
+
 function getCommits(repo) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("Getting Commits");
+      console.log("Calling GitHub API...");
       resolve(["commit"]);
-    });
+    }, 2000);
   });
 }
