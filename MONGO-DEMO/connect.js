@@ -33,3 +33,4 @@ async function getCourses() {
   console.log(courses);
 }
 getCourses();
+

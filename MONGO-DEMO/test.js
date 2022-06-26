@@ -1,26 +1,29 @@
 const mongoose = require("mongoose");
-mongoose
-  .connect("mongodb://localhost/movies")
-  .then(() => console.log("Connected to database"))
-  .catch((err) => console.error("Failed to connect to database"));
 
-const movieSchema = new mongoose.Schema({
-  name: String,
+mongoose
+  .connect("mongodb://localhost/novels")
+  .then(() => console.log("Connected to database"))
+  .catch((err) => console.log("Failed to connect to database", err));
+
+const novelSchema = new mongoose.Schema({
+  title: String,
+  pages: Number,
   author: String,
   tags: [String],
+  isPublished: Boolean,
   date: { type: Date, Default: Date.now },
 });
 
-const Movie = mongoose.model("movie", movieSchema);
-
-async function createMovie() {
-  const movie = new Movie({
-    name: "Fortnite",
-    author: "Hitler",
-    tags: ["Latest", "series"],
-    isReleased: true,
+const Novel = new mongoose.model("Novel", novelSchema);
+async function createNovel() {
+  const novel = new Novel({
+    title: "50 Shades",
+    pages: 2544,
+    author: "Unknown Author",
+    tags: ["Romance", "Love"],
+    isPublished: true,
   });
-  const result = await movie.save();
-  console.log(result);
+  const result = await novel.save();
+  if (result) console.log(`Created a new database`);
 }
-createMovie();
+createNovel();
