@@ -32,7 +32,10 @@ async function getCourses() {
   //   .sort({ name: 1 })
   //   .select({ name: 1, tags: 1 });
   // console.log(courses);
-  const courses = await Course.find({ price: { $in: [10, 15, 20] } });
+  const course = await Course.find().or([
+    { author: "tony" },
+    { isPublished: true },
+  ]);
 }
 getCourses();
 
