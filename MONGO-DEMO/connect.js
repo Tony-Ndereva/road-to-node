@@ -32,11 +32,14 @@ async function getCourses() {
   //   .sort({ name: 1 })
   //   .select({ name: 1, tags: 1 });
   // console.log(courses);
-  const course = await Course.find().or([
-    { author: "tony" },
-    { isPublished: true },
-  ]);
+  // const course = await Course.find().or([
+  //   { author: "tony" },
+  //   { isPublished: true },
+  // ]);
+  const courses = await Course.find({ author: /.*tony*./ });
+  console.log(courses);
 }
+
 getCourses();
 
 // Complex query operators
