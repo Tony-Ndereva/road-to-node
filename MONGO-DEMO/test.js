@@ -14,16 +14,19 @@ const novelSchema = new mongoose.Schema({
   date: { type: Date, Default: Date.now },
 });
 
-const Novel = new mongoose.model("Novel", novelSchema);
+const Novel = mongoose.model("Novel", novelSchema);
 async function createNovel() {
   const novel = new Novel({
-    title: "50 Shades",
+    title: "The River and the Source",
     pages: 2544,
     author: "Unknown Author",
-    tags: ["Romance", "Love"],
+    tags: ["GirlChild", "WomenEmpowerement"],
     isPublished: true,
   });
   const result = await novel.save();
-  if (result) console.log(`Created a new database`);
+  //if (result) console.log(`Created a new database`);
 }
-createNovel();
+// createNovel();
+function getNovels(){
+  const novel = Novel.find()
+}

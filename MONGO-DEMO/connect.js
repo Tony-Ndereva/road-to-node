@@ -27,17 +27,26 @@ async function createCourses() {
   // console.log(result);
 }
 async function getCourses() {
-  // const courses = await Course.find({ author: "tony", isPublished: true })
-  //   .limit(10)
-  //   .sort({ name: 1 })
-  //   .select({ name: 1, tags: 1 });
-  // console.log(courses);
-  // const course = await Course.find().or([
-  //   { author: "tony" },
-  //   { isPublished: true },
-  // ]);
-  const courses = await Course.find({ author: /.*tony*./ });
+  const pageNumber = 2;
+  const pageSize = 10;
+  // /api/courses?pageNumber=2&pageSize=10
+  const courses = await Course.find({ author: "tony", isPublished: true })
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize)
+    .sort({ name: 1 })
+    .select({ name: 1, tags: 1 });
   console.log(courses);
+
+  //   const courses = await Course.find({ author: /.*tony*./ });
+
+  //   //        At beginning
+  //   // => author:/^tony/
+  //   //        At End
+  //   // => author: /tony$/
+  //   //        At anywhere
+  //   // =>author: /.*tony*./
+  //   console.log(courses);
+  //
 }
 
 getCourses();
