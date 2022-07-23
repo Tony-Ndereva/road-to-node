@@ -41,7 +41,7 @@ const Course = mongoose.model("courses", courseSchema);
 // }
 // updateCourse("5a68ff090c553064a218a547");
 async function updateCourse(){
-  const course = await Course.update({_id : id},{
+  const course = await Course.updateOne({_id : id},{
     
   } )
 }
