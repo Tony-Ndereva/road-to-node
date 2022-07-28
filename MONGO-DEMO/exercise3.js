@@ -40,10 +40,24 @@ const Course = mongoose.model("courses", courseSchema);
 //   console.log(result);
 // }
 // updateCourse("5a68ff090c553064a218a547");
-async function updateCourse(){
-  const course = await Course.updateOne({_id : id},{
-    
-  } )
-}
+// async function updateCourse(){
+//   const course = await Course.updateOne({_id : id},{
+
+//   } )
+// }
 
 // BrB gonna be right back after FinalExams
+async function updateCourse(id) {
+  const results = await Course.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        author: "Jayson ",
+        isPublished: false,
+      },
+    },
+    { new: true }
+  );
+  console.log(results);
+}
+updateCourse("5a68ff090c553064a218a547");
