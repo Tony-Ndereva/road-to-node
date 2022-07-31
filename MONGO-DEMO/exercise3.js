@@ -60,4 +60,11 @@ async function updateCourse(id) {
   );
   console.log(results);
 }
-updateCourse("5a68ff090c553064a218a547");
+// updateCourse("5a68ff090c553064a218a547");
+
+async function removeCourse(id) {
+  // const result = await Course.deleteOne({ _id: id });
+  const result = await Course.findByIdAndDelete(id);
+  console.log(result);
+}
+removeCourse("5a68ff090c553064a218a547");
