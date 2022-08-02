@@ -4,8 +4,13 @@ const AuthSchema = Joi.object({
   name: Joi.string().min(3).lowercase().required(),
 });
 
-const VidlySchema = Joi.object({
+const genre_VidlySchema = Joi.object({
   name: Joi.string().lowercase().required(),
   isGold: Joi.boolean(),
 });
-module.exports = { AuthSchema, VidlySchema };
+const customer_vidlySchema = Joi.object({
+  phone: Joi.number().required(),
+  isGold: Joi.boolean(),
+  name: Joi.string().lowercase().required(),
+});
+module.exports = { AuthSchema, genre_VidlySchema, customer_vidlySchema };
