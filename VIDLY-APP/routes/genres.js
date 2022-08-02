@@ -1,17 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const route = express.Router();
-const { genre_VidlySchema} = require("../../EXPRESS-DEMO/validate_schema");
+const { genre_VidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
+const { Genre } = require("../models/genre");
 
-const genreSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 50,
-  },
-});
-const Genre = mongoose.model("genre", genreSchema);
+
 
 route.get("/", async (req, res) => {
   const genres = await Genre.find().sort("name");
@@ -62,4 +55,4 @@ route.delete("/:id", async (req, res) => {
   res.send("Deleted successfully");
 });
 
-module.exports = route
+module.exports = route;
