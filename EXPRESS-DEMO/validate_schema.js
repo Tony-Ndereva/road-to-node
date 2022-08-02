@@ -5,6 +5,6 @@ const AuthSchema = Joi.object({
 });
 
 const VidlySchema = Joi.object({
-  type: Joi.string().lowercase().required(),
+  name: Joi.string().lowercase().required(),
 });
 module.exports = { AuthSchema, VidlySchema };
