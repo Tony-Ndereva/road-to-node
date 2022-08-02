@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const route = express.Router();
-const { VidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
+const { genre_VidlySchema} = require("../../EXPRESS-DEMO/validate_schema");
 
 const genreSchema = new mongoose.Schema({
   name: {
@@ -27,7 +27,7 @@ route.get("/:id", async (req, res) => {
 });
 
 route.post("/", async (req, res) => {
-  const results = VidlySchema.validate(req.body);
+  const results = genre_VidlySchema.validate(req.body);
   if (results.error)
     return res.status(404).send(results.error.details[0].message);
 
@@ -40,7 +40,7 @@ route.post("/", async (req, res) => {
 });
 
 route.put("/:id", async (req, res) => {
-  const results = VidlySchema.validate(req.body);
+  const results = genre_VidlySchema.validate(req.body);
   if (results.error)
     return res.status(404).send(results.error.details[0].message);
   const genre = await Genre.findByIdAndUpdate(
