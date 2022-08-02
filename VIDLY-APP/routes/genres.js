@@ -41,7 +41,8 @@ route.post("/", async (req, res) => {
 
 route.put("/:id", async (req, res) => {
   const results = VidlySchema.validate(req.body);
-
+  if (results.error)
+    return res.status(404).send(results.error.details[0].message);
   const genre = await Genre.findByIdAndUpdate(
     req.params.id,
     { name: req.body.name },
@@ -61,4 +62,4 @@ route.delete("/:id", async (req, res) => {
   res.send("Deleted successfully");
 });
 
-module.exports = route;
+module.exports = route
