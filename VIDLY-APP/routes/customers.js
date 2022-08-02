@@ -1,14 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const route = express.Router();
-const { VidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
+const { customer_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
 
 const customerSchema = new mongoose.Schema({
   isGold: {
     type: Boolean,
     default: false,
   },
-  name: String,
+  name: {
+    type: String,
+    lowercase: true,
+  },
   date: { type: Date, default: Date.now },
   phone: Number,
   version: Number,
@@ -28,7 +31,7 @@ route.get("/:id", async (req, res) => {
 });
 route.post("/", async (req, res) => {
   // route for inserting new customers to the database
-  const results = VidlySchema.validate(req.body);
+  const results = customer_vidlySchema.validate(req.body);
   if (results.error)
     return res.status(404).send(results.error.details[0].message);
   let customer = new Customer({
@@ -42,7 +45,7 @@ route.post("/", async (req, res) => {
 
 route.put("/:id", async (req, res) => {
   // route for updating a customer
-  const results = VidlySchema.validate(req.body);
+  const results = customer_vidlySchema.validate(req.body);
   if (results.error)
     return res.status(404).send(results.error.details[0].message);
 
@@ -66,4 +69,3 @@ route.delete("/:id", async (req, res) => {
   res.send("The customer was deleted successfuly");
 });
 module.exports = route;
-
