@@ -1,23 +1,8 @@
 const express = require("express");
+const { Customer } = require("../models/customer");
 const mongoose = require("mongoose");
 const route = express.Router();
 const { customer_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
-
-const customerSchema = new mongoose.Schema({
-  isGold: {
-    type: Boolean,
-    default: false,
-  },
-  name: {
-    type: String,
-    lowercase: true,
-  },
-  date: { type: Date, default: Date.now },
-  phone: Number,
-  version: Number,
-});
-
-const Customer = mongoose.model("customers", customerSchema);
 
 route.get("/", async (req, res) => {
   const customers = await Customer.find().sort("name");
