@@ -28,6 +28,8 @@ route.post("/", async (req, res) => {
   res.send(customer);
 });
 
+
+
 route.put("/:id", async (req, res) => {
   // route for updating a customer
   const results = customer_vidlySchema.validate(req.body);
