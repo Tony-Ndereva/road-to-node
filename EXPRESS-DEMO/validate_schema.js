@@ -13,4 +13,16 @@ const customer_vidlySchema = Joi.object({
   isGold: Joi.boolean(),
   name: Joi.string().lowercase().required(),
 });
-module.exports = { AuthSchema, genre_VidlySchema, customer_vidlySchema };
+
+const movie_vidlySchema = Joi.object({
+  title: Joi.string().min(5).max(50).required(),
+  genreId: Joi.string().required(),
+  numberInStock: Joi.number().min(0).required(),
+  dailyRentalRate: Joi.number().min(0).required(),
+});
+module.exports = {
+  AuthSchema,
+  genre_VidlySchema,
+  customer_vidlySchema,
+  movie_vidlySchema,
+};
