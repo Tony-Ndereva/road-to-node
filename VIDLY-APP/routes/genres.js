@@ -4,8 +4,6 @@ const route = express.Router();
 const { genre_VidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
 const { Genre } = require("../models/genre");
 
-
-
 route.get("/", async (req, res) => {
   const genres = await Genre.find().sort("name");
   res.send(genres);
