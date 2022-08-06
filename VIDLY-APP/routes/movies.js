@@ -3,7 +3,7 @@ const { Movie } = require("../models/movie");
 const express = require("express");
 const route = express.Router();
 const { movie_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
-const Genre = require("../models/genre");
+const { Genre } = require("../models/genre");
 
 route.get("/", async (req, res) => {
   const movies = await Movie.find();
@@ -11,10 +11,11 @@ route.get("/", async (req, res) => {
 });
 route.get("/:id", async (req, res) => {
   const movie = await Movie.findById(req.params.id);
+
   res.send(movie);
 });
 
-route.post("/:id", async (req, res) => {
+route.post("/", async (req, res) => {
   const results = movie_vidlySchema.validate(req.body);
   if (results.error)
     return res.status(404).send(results.error.details[0].message);
@@ -36,10 +37,10 @@ route.put("/:id", async (req, res) => {
   const results = movie_vidlySchema.validate(req.body);
   if (results.error)
     return res.status(404).send(results.error.details[0].message);
-  const genre = Genre.findById(req.body.genreId);
+  const genre = await Genre.findById(req.body.genreId);
   if (!genre) res.status(404).send("Invalid Genre");
 
-  const movie = await Genre.findByIdAndUpdate(
+  const movie = await Movie.findByIdAndUpdate(
     req.params.id,
     {
       title: req.body.title,
@@ -59,10 +60,10 @@ route.put("/:id", async (req, res) => {
 });
 
 route.delete("/:id", async (req, res) => {
-  const movie = Movie.findByIdAndRemove(req.params.id);
+  const movie = await Movie.findByIdAndDelete(req.params.id);
   if (!movie)
     res.status(404).send("The course with the given ID was not found");
-  res.send(`course ${movie} deleted`);
+  res.send(`course successfully deleted`);
 });
 
 module.exports = route;
