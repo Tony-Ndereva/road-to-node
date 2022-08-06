@@ -45,3 +45,4 @@ route.post("/", async (req, res) => {
   movie.save();
 });
 
+module.exports = route;
