@@ -41,6 +41,7 @@ route.post("/", async (req, res) => {
     },
   });
   rental = await rental.save();
+  res.send(rental);
   movie.numberInStock--;
   movie.save();
 });
