@@ -20,9 +20,14 @@ const movie_vidlySchema = Joi.object({
   numberInStock: Joi.number().min(0).required(),
   dailyRentalRate: Joi.number().min(0).required(),
 });
+const rental_vidlySchema = Joi.object({
+  customerId: Joi.string().required(),
+  movieId: Joi.string().required(),
+});
 module.exports = {
   AuthSchema,
   genre_VidlySchema,
   customer_vidlySchema,
   movie_vidlySchema,
+  rental_vidlySchema
 };
