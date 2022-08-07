@@ -22,11 +22,11 @@ route.post("/", async (req, res) => {
   if (results.error)
     return res.status(404).send(results.error.details[0].message);
 
-  let genre = new Genre({
+  const genre = new Genre({
     name: req.body.name,
   });
 
-  genre = await genre.save();
+  await genre.save();
   res.send(genre);
 });
 

@@ -24,6 +24,9 @@ route.get("/:id", async (req, res) => {
 route.post("/", async (req, res) => {
   const results = rental_vidlySchema.validate(req.body);
   if (results.error) res.status(404).send(results.error.details[0].message);
+
+  if (!mongoose.Types.ObjectId.isValid(req.body.customerId))
+    return res.status(400).send("Invalid customer");
   const customer = await Customer.findById(req.body.customerId);
   if (!customer)
     res.status(404).send("Invalid customerID or the customer was not found ");
