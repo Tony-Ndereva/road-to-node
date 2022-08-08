@@ -30,11 +30,16 @@ const user_vidlySchema = Joi.object({
   email: Joi.string().min(5).max(255).required().email(),
   password: Joi.string().min(5).max(255).required(),
 });
+const auth_vidlySchema = Joi.object({
+  email: Joi.string().min(5).max(255).required().email(),
+  password: Joi.string().min(5).max(255).required(),
+});
 module.exports = {
   AuthSchema,
   genre_VidlySchema,
   customer_vidlySchema,
   movie_vidlySchema,
   rental_vidlySchema,
-  user_vidlySchema
+  user_vidlySchema,
+  auth_vidlySchema
 };
