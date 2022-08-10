@@ -7,6 +7,7 @@ const { User } = require("../models/user");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const config = require("config");
 
 route.post("/", async (req, res) => {
   const results = auth_vidlySchema.validate(req.body);
@@ -22,7 +23,7 @@ route.post("/", async (req, res) => {
     {
       _id: user._id,
     },
-    "jwtPrivateKey"
+    config.get("jwtPrivateKey")
   );
   res.send(token);
 });
