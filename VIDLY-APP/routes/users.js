@@ -6,6 +6,8 @@ const { user_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
 const { User } = require("../models/user");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 route.post("/", async (req, res) => {
   const results = user_vidlySchema.validate(req.body);
@@ -20,7 +22,11 @@ route.post("/", async (req, res) => {
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
 
-  res.send(_.pick(user, ["_id", "name", "email"]));
+  const token = user.generateAuthToken();
+  
+  res
+    .header("x-auth.token", token)
+    .send(_.pick(user, ["_id", "name", "email"]));
 });
 
 module.exports = route;
