@@ -6,10 +6,14 @@ const { user_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
 const { User } = require("../models/user");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
+const auth = require("../middleware/auth");
 
+route.get("/me", auth, async (req, res) => {
+  const user = await User.findById(req.user._id).select('-password');
+  res.send(user);
+});
 
-
-route.post("/", async (req, res) => {
+route.post("/", auth, async (req, res) => {
   const results = user_vidlySchema.validate(req.body);
   if (results.error)
     return res.status(400).send(results.error.details[0].message);
