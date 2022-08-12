@@ -4,6 +4,7 @@ const express = require("express");
 const route = express.Router();
 const { movie_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
 const { Genre } = require("../models/genre");
+const auth = require("../middleware/auth");
 
 route.get("/", async (req, res) => {
   const movies = await Movie.find();
@@ -15,7 +16,7 @@ route.get("/:id", async (req, res) => {
   res.send(movie);
 });
 
-route.post("/", async (req, res) => {
+route.post("/", auth, async (req, res) => {
   const results = movie_vidlySchema.validate(req.body);
   if (results.error)
     return res.status(404).send(results.error.details[0].message);

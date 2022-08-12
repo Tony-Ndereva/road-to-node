@@ -6,6 +6,7 @@ const { rental_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
 const { Customer } = require("../models/customer");
 const { Movie } = require("../models/movie");
 const Fawn = require("fawn");
+const auth = require("../middleware/auth");
 
 Fawn.init("mongodb://localhost/vidly");
 
@@ -21,7 +22,7 @@ route.get("/:id", async (req, res) => {
   res.send(rental);
 });
 
-route.post("/", async (req, res) => {
+route.post("/", auth, async (req, res) => {
   const results = rental_vidlySchema.validate(req.body);
   if (results.error) res.status(404).send(results.error.details[0].message);
 

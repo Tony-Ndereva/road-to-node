@@ -8,8 +8,9 @@ const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const auth = require("../middleware/auth");
 
-route.post("/", async (req, res) => {
+route.post("/", auth, async (req, res) => {
   const results = auth_vidlySchema.validate(req.body);
   if (results.error)
     return res.status(400).send(results.error.details[0].message);

@@ -3,7 +3,7 @@ const { Customer } = require("../models/customer");
 const mongoose = require("mongoose");
 const route = express.Router();
 const { customer_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
-
+const auth = require('../middleware/auth')
 route.get("/", async (req, res) => {
   const customers = await Customer.find().sort("name");
   res.send(customers);
@@ -14,7 +14,7 @@ route.get("/:id", async (req, res) => {
   if (!customer) res.status(404).send("There is no course with the given ID");
   res.send(customer);
 });
-route.post("/", async (req, res) => {
+route.post("/", auth,async (req, res) => {
   // route for inserting new customers to the database
   const results = customer_vidlySchema.validate(req.body);
   if (results.error)
