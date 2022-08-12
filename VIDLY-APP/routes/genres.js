@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const route = express.Router();
 const { genre_VidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
 const { Genre } = require("../models/genre");
+const auth = require('../middleware/auth')
 
 route.get("/", async (req, res) => {
   const genres = await Genre.find().sort("name");
@@ -17,7 +18,8 @@ route.get("/:id", async (req, res) => {
   res.send(genre);
 });
 
-route.post("/", async (req, res) => {
+route.post("/", auth, async (req, res) => {
+  
   const results = genre_VidlySchema.validate(req.body);
   if (results.error)
     return res.status(404).send(results.error.details[0].message);
