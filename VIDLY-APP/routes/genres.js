@@ -3,11 +3,16 @@ const mongoose = require("mongoose");
 const route = express.Router();
 const { genre_VidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
 const { Genre } = require("../models/genre");
-const auth = require('../middleware/auth')
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 
-route.get("/", async (req, res) => {
-  const genres = await Genre.find().sort("name");
-  res.send(genres);
+route.get("/", async (req, res, next) => {
+  try {
+    const genres = await Genre.find().sort("name");
+    res.send(genres);
+  } catch (ex) {
+    next(ex);
+  }
 });
 
 route.get("/:id", async (req, res) => {
@@ -19,7 +24,6 @@ route.get("/:id", async (req, res) => {
 });
 
 route.post("/", auth, async (req, res) => {
-  
   const results = genre_VidlySchema.validate(req.body);
   if (results.error)
     return res.status(404).send(results.error.details[0].message);
@@ -47,7 +51,7 @@ route.put("/:id", async (req, res) => {
   res.send(genre);
 });
 
-route.delete("/:id", async (req, res) => {
+route.delete("/:id", [auth, admin], async (req, res) => {
   const genre = await Genre.findByIdAndDelete(req.params.id);
   // const genre = genres.find((c) => c.id === parseInt(req.params.id));
   if (!genre) return res.status(404).send("The genre was not found!");
