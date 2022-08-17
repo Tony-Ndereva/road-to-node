@@ -1,5 +1,6 @@
 const express = require("express");
 require("express-async-errors");
+const winston = require("winston");
 const mongoose = require("mongoose");
 const app = express();
 app.use(express.json());
@@ -13,6 +14,11 @@ const auth = require("./routes/auth");
 const config = require("config");
 const _ = require("lodash");
 const error = require("./middleware/error");
+
+winston.add(winston.transports.File, { filename: "logfile.log" });
+
+
+
 
 if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined");
