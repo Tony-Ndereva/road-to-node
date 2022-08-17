@@ -6,13 +6,9 @@ const { Genre } = require("../models/genre");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
-route.get("/", async (req, res, next) => {
-  try {
-    const genres = await Genre.find().sort("name");
-    res.send(genres);
-  } catch (ex) {
-    next(ex);
-  }
+route.get("/", async (req, res) => {
+  const genres = await Genre.find().sort("name");
+  res.send(genres);
 });
 
 route.get("/:id", async (req, res) => {
