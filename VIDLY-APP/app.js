@@ -11,7 +11,7 @@ require("./startup/connect");
 //   winston.error(ex.message, ex);
 // });
 
-throw new Error("Something failed during startup");
+// throw new Error("Something failed during startup");
 
 if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined");
