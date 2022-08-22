@@ -16,9 +16,16 @@ const config = require("config");
 const _ = require("lodash");
 const error = require("./middleware/error");
 
-process.on("uncaughtException", (ex) => {
-  console.log("We got an uncaught exception");
-  winston.error(ex.message, ex);
+// process.on("uncaughtException", (ex) => {
+//   console.log("We got an uncaught exception");
+//   winston.error(ex.message, ex);
+// });
+winston.handleExceptions(
+  new winston.transports.File({ filename: "uncaughtExceptions.log" })
+);
+
+process.on("unhandledRejection", (ex) => {
+  throw ex;
 });
 winston.add(winston.transports.File, { filename: "logfile.log" });
 winston.add(winston.transports.MongoDB, {
@@ -26,7 +33,8 @@ winston.add(winston.transports.MongoDB, {
   level: "error",
 });
 
-throw new Error("Something failed during startup");
+// throw new Error("Something failed during startup");
+
 
 if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined");
