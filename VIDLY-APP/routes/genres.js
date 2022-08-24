@@ -7,7 +7,6 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
 route.get("/", async (req, res) => {
-  // throw new Error("Could not get the genres");
   const genres = await Genre.find().sort("name");
   res.send(genres);
 });
@@ -42,7 +41,6 @@ route.put("/:id", async (req, res) => {
     { name: req.body.name },
     { new: true }
   );
-  // const genre = genres.find((c) => c.id === parseInt(req.params.id));
   if (!genre) return res.status(404).send("The genre was not found!");
 
   res.send(genre);
@@ -50,12 +48,8 @@ route.put("/:id", async (req, res) => {
 
 route.delete("/:id", [auth, admin], async (req, res) => {
   const genre = await Genre.findByIdAndDelete(req.params.id);
-  // const genre = genres.find((c) => c.id === parseInt(req.params.id));
   if (!genre) return res.status(404).send("The genre was not found!");
-
   res.send("Deleted successfully");
 });
 
 module.exports = route;
-
-
