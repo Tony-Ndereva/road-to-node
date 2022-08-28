@@ -1,4 +1,10 @@
-// const db = require("./db");
+const db = require("./db");
+// // Mock functions
+module.exports.applyDiscount = function (order) {
+  const customer = db.getCustomerSync(order.customerId);
+
+  if (customer.points > 10) order.totalPrice *= 0.9;
+};  
 // const mail = require("./mail");
 
 // Testing numbers
@@ -12,9 +18,9 @@
 // };
 
 // // Testing arrays
-module.exports.getCurrencies = function () {
-  return ["USD", "AUD", "EUR"];
-};
+// module.exports.getCurrencies = function () {
+//   return ["USD", "AUD", "EUR"];
+// };
 
 // // Testing objects
 // module.exports.getProduct = function (productId) {
@@ -28,12 +34,6 @@ module.exports.getCurrencies = function () {
 //   return { id: new Date().getTime(), username: username };
 // };
 
-// // Mock functions
-// module.exports.applyDiscount = function (order) {
-//   const customer = db.getCustomerSync(order.customerId);
-
-//   if (customer.points > 10) order.totalPrice *= 0.9;
-// };
 
 // // Mock functions
 // module.exports.notifyCustomer = function (order) {
