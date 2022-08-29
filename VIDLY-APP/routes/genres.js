@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const route = express.Router();
 const { genre_VidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
+const validateObjectId = require("../middleware/validateObjectID");
 const { Genre } = require("../models/genre");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
@@ -11,9 +12,7 @@ route.get("/", async (req, res) => {
   res.send(genres);
 });
 
-route.get("/:id", async (req, res) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id))
-    return res.status(404).send("Invalid ID");
+route.get("/:id", validateObjectId, async (req, res) => {
   const genre = await Genre.findById(req.params.id);
 
   if (!genre)
