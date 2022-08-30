@@ -23,8 +23,8 @@ route.get("/:id", async (req, res) => {
 });
 
 route.post("/", auth, async (req, res) => {
-  const results = rental_vidlySchema.validate(req.body);
-  if (results.error) res.status(404).send(results.error.details[0].message);
+  const { error } = rental_vidlySchema.validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   if (!mongoose.Types.ObjectId.isValid(req.body.customerId))
     return res.status(400).send("Invalid customer");

@@ -3,7 +3,7 @@ const { Customer } = require("../models/customer");
 const mongoose = require("mongoose");
 const route = express.Router();
 const { customer_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
-const auth = require('../middleware/auth')
+const auth = require("../middleware/auth");
 route.get("/", async (req, res) => {
   const customers = await Customer.find().sort("name");
   res.send(customers);
@@ -14,11 +14,11 @@ route.get("/:id", async (req, res) => {
   if (!customer) res.status(404).send("There is no course with the given ID");
   res.send(customer);
 });
-route.post("/", auth,async (req, res) => {
+route.post("/", auth, async (req, res) => {
   // route for inserting new customers to the database
-  const results = customer_vidlySchema.validate(req.body);
-  if (results.error)
-    return res.status(404).send(results.error.details[0].message);
+  const { error } = customer_vidlySchema.validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
   const customer = new Customer({
     name: req.body.name,
     isGold: req.body.isGold,
@@ -30,9 +30,8 @@ route.post("/", auth,async (req, res) => {
 
 route.put("/:id", async (req, res) => {
   // route for updating a customer
-  const results = customer_vidlySchema.validate(req.body);
-  if (results.error)
-    return res.status(404).send(results.error.details[0].message);
+  const { error } = customer_vidlySchema.validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   const customer = await Customer.findByIdAndUpdate(
     req.params.id,

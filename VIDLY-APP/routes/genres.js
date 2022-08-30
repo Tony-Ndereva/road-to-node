@@ -21,9 +21,8 @@ route.get("/:id", validateObjectId, async (req, res) => {
 });
 
 route.post("/", auth, async (req, res) => {
-  const results = genre_VidlySchema.validate(req.body);
-  if (results.error)
-    return res.status(404).send(results.error.details[0].message);
+  const { error } = genre_VidlySchema.validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   const genre = new Genre({
     name: req.body.name,
@@ -34,9 +33,9 @@ route.post("/", auth, async (req, res) => {
 });
 
 route.put("/:id", async (req, res) => {
-  const results = genre_VidlySchema.validate(req.body);
-  if (results.error)
-    return res.status(404).send(results.error.details[0].message);
+  const { error } = genre_VidlySchema.validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
   const genre = await Genre.findByIdAndUpdate(
     req.params.id,
     { name: req.body.name },

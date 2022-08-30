@@ -11,9 +11,8 @@ const config = require("config");
 const auth = require("../middleware/auth");
 
 route.post("/", async (req, res) => {
-  const results = auth_vidlySchema.validate(req.body);
-  if (results.error)
-    return res.status(400).send(results.error.details[0].message);
+  const { error } = auth_vidlySchema.validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({ email: req.body.email });
   if (!user) return res.status(400).send("Invalid e-mail or password");

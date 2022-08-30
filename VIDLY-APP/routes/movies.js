@@ -35,9 +35,8 @@ route.post("/", auth, async (req, res) => {
   res.send(movie);
 });
 route.put("/:id", async (req, res) => {
-  const results = movie_vidlySchema.validate(req.body);
-  if (results.error)
-    return res.status(404).send(results.error.details[0].message);
+  const { error } = movie_vidlySchema.validate(req.body);
+  if (error) return res.status(404).send(error.details[0].message);
   const genre = await Genre.findById(req.body.genreId);
   if (!genre) res.status(404).send("Invalid Genre");
 

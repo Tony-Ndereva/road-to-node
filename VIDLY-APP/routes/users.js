@@ -9,14 +9,13 @@ const bcrypt = require("bcrypt");
 const auth = require("../middleware/auth");
 
 route.get("/me", auth, async (req, res) => {
-  const user = await User.findById(req.user._id).select('-password');
+  const user = await User.findById(req.user._id).select("-password");
   res.send(user);
 });
 
 route.post("/", auth, async (req, res) => {
-  const results = user_vidlySchema.validate(req.body);
-  if (results.error)
-    return res.status(400).send(results.error.details[0].message);
+  const { error } = user_vidlySchema.validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).send("User already registered");
