@@ -6,7 +6,7 @@ const AuthSchema = Joi.object({
 });
 
 const genre_VidlySchema = Joi.object({
-  name: Joi.string().lowercase().required(),
+  name: Joi.string().lowercase().min(5).max(50).required(),
   isGold: Joi.boolean(),
 });
 const customer_vidlySchema = Joi.object({
@@ -41,5 +41,5 @@ module.exports = {
   movie_vidlySchema,
   rental_vidlySchema,
   user_vidlySchema,
-  auth_vidlySchema
+  auth_vidlySchema,
 };
