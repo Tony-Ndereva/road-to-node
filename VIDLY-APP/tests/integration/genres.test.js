@@ -1,4 +1,5 @@
 const request = require("supertest");
+
 const { Genre } = require("../../models/genre");
 const { User } = require("../../models/user");
 let server;
@@ -8,7 +9,7 @@ describe("/api/genres", () => {
     server = require("../../app");
   });
   afterEach(async () => {
-    server.close();
+    await server.close();
     await Genre.remove({});
   });
   describe("GET /", () => {
