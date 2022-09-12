@@ -1,14 +1,9 @@
-const { Router } = require("express");
 const express = require("express");
-const mongoose = require("mongoose");
 const route = express.Router();
 const { auth_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
 const { User } = require("../models/user");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const config = require("config");
-const auth = require("../middleware/auth");
 
 route.post("/", async (req, res) => {
   const { error } = auth_vidlySchema.validate(req.body);
