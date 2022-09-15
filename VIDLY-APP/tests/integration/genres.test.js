@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const request = require("supertest");
 
 const { Genre } = require("../../models/genre");
@@ -38,6 +39,12 @@ describe("/api/genres", () => {
 
     it("should return a 404 error if invalid genre ID", async () => {
       const res = await request(server).get("/api/genres/1");
+      expect(res.status).toBe(404);
+    });
+
+    it("should return a 404 error if no genre with the given ID exist", async () => {
+      const id = mongoose.Types.ObjectId();
+      const res = await request(server).get("/api/genres/" + id);
       expect(res.status).toBe(404);
     });
   });
