@@ -13,7 +13,7 @@ route.get("/me", auth, async (req, res) => {
   res.send(user);
 });
 
-route.post("/", auth, async (req, res) => {
+route.post("/",  async (req, res) => {
   const { error } = user_vidlySchema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
