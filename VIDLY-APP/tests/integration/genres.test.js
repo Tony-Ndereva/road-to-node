@@ -145,13 +145,13 @@ describe("/api/genres", () => {
       expect(genre.name).toBe("Updatedname");
     });
 
-    it("return 404 error if genre is not found", async () => {
+    it("should return 404 error if genre is not found", async () => {
       id = mongoose.Types.ObjectId();
       const res = await exec();
       expect(res.status).toBe(404);
     });
 
-    it("return 404 error if genre ID is invalid", async () => {
+    it("should return 404 error if genre ID is invalid", async () => {
       id = "1"
       const res = await exec();
       expect(res.status).toBe(404);
