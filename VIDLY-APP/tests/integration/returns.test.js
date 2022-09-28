@@ -35,6 +35,6 @@ describe("/api/returns", () => {
       .post("/api/returns")
       .send({ customerId, movieId });
 
-    expect((await res).status).toBe(401);
+    expect(res.status).toBe(401);
   });
 });
