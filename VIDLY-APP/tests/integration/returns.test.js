@@ -89,6 +89,6 @@ describe("/api/returns", () => {
     await rental.save();
     const res = await exec();
     const rentalInDb =await  Rental.findById(rental._id);
-    expect(rentalInDb.rentalFee).toBeDefined();
+    expect(rentalInDb.rentalFee).toBe(14);
   });
 });
