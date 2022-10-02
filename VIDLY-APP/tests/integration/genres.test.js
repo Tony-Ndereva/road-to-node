@@ -152,7 +152,7 @@ describe("/api/genres", () => {
     });
 
     it("should return 404 error if genre ID is invalid", async () => {
-      id = "1"
+      id = 1
       const res = await exec();
       expect(res.status).toBe(404);
     });
