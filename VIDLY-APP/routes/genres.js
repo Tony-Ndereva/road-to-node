@@ -32,7 +32,7 @@ route.post("/", auth, async (req, res) => {
   res.send(genre);
 });
 
-route.put("/:id", async (req, res) => {
+route.put("/:id",[auth,validateObjectId], async (req, res) => {
   const { error } = genre_VidlySchema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
