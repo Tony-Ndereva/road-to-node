@@ -9,6 +9,10 @@ const genre_VidlySchema = Joi.object({
   name: Joi.string().lowercase().min(5).max(50).required(),
   isGold: Joi.boolean(),
 });
+const returns_VidlySchema = Joi.object({
+  customerId: Joi.objectId().required(),
+  movieId: Joi.objectId().required(),
+});
 const customer_vidlySchema = Joi.object({
   phone: Joi.number().required(),
   isGold: Joi.boolean(),
@@ -42,4 +46,5 @@ module.exports = {
   rental_vidlySchema,
   user_vidlySchema,
   auth_vidlySchema,
+  returns_VidlySchema,
 };
