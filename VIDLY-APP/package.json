@@ -2,9 +2,13 @@
   "name": "vidly-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "jest --watchAll --verbose --detectOpenHandles"
+    "test": "jest --watchAll --verbose --detectOpenHandles",
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "16.17.1"
   },
   "keywords": [],
   "author": "",
