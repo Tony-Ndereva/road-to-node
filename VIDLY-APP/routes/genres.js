@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const route = express.Router();
-const { genre_VidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
+const { genre_VidlySchema } = require("../validate_schema");
 const validateObjectId = require("../middleware/validateObjectID");
 const { Genre } = require("../models/genre");
 const auth = require("../middleware/auth");

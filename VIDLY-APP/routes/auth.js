@@ -1,6 +1,6 @@
 const express = require("express");
 const route = express.Router();
-const { auth_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
+const { auth_vidlySchema } = require("../validate_schema");
 const { User } = require("../models/user");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");

@@ -4,7 +4,7 @@ const route = express.Router();
 const auth = require("../middleware/auth");
 const moment = require("moment");
 const { Movie } = require("../models/movie");
-const { returns_VidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
+const { returns_VidlySchema } = require("../validate_schema");
 route.post("/", auth, async (req, res) => {
   // if (!req.body.customerId)
   //   return res.status(400).send("customerId is not provided");

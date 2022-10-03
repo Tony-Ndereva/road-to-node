@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Movie } = require("../models/movie");
 const express = require("express");
 const route = express.Router();
-const { movie_vidlySchema } = require("../../EXPRESS-DEMO/validate_schema");
+const { movie_vidlySchema } = require("../validate_schema");
 const { Genre } = require("../models/genre");
 const auth = require("../middleware/auth");
 
